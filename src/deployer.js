@@ -42,13 +42,11 @@ class Deployer {
   }
 
   async openConnection () {
-    if (this.config.options.awsProfile !== 'default') {
-      let credentials = new AWS.SharedIniFileCredentials({
-        profile: this.config.options.awsProfile
-      })
+		let credentials = new AWS.SharedIniFileCredentials({
+			profile: this.config.options.awsProfile || 'default'
+		})
 
-      this.config.awsConfig.credentials = credentials
-    }
+		this.config.awsConfig.credentials = credentials
 
     AWS.config.update(this.config.awsConfig)
     this.connection = new AWS.S3()
